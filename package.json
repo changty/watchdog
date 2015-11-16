@@ -1,0 +1,22 @@
+{
+  "name": "watchdog",
+  "version": "1.0.0",
+  "description": "Tool for home automation/control",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/changty/watchdog.git"
+  },
+  "author": "Einari Kurvinen",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/changty/watchdog/issues"
+  },
+  "homepage": "https://github.com/changty/watchdog#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
