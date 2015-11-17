@@ -1,5 +1,7 @@
 var https = 	require('https'); 
 var fs =		require('fs'); 
+var exec = 		require('child_process').exec;
+
 var express =	require('express'); 
 var app =		express(); 
 
@@ -11,9 +13,12 @@ var LocalStrategy = require('passport-local').Strategy
 
 var crypto = require('crypto');
 
+var exphbs = require('express-handlebars'); 
+
 var config = 	require('./config');
 
-
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({extended: false})); 
 app.use(cookieParser()); 
@@ -30,7 +35,7 @@ app.use(passport.session());
 // passport config
 passport.use(new LocalStrategy(
   function(username, password, done) {
-  		console.log(crypto.createHash('sha256').update(password).digest('base64'), username);
+  		console.log(crypto.createHash('sha256').update(password).digest('base64'));
   		if(username === config.username && crypto.createHash('sha256').update(password).digest('base64') === config.pwdHash) {
 	    	return done(null, true);
   		}
@@ -58,28 +63,37 @@ var secureServer = https.createServer({
 	console.log("Secure Express server listening on port", config.port);
 }); 
 
-
-app.get('/test', ensureAuthenticated, function(req, res) {
-	console.log("moi");
-	res.send('test!');
-});
-
 app.get('/loginSuccess', ensureAuthenticated, function(req, res) {
 	res.send('success!');
 });
 
 app.get('/loginFailure', function(req, res) {
+	console.log("failure");
 	res.send('failure!');
 });
 
 app.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/loginFailure', successRedirect: '/loginSuccess' }),
+  passport.authenticate('local', { failureRedirect: '/loginFailure', successRedirect: '/control' }),
   function(req, res) {
-    res.redirect('/');
+    res.render('login');
 });
 
-app.post('/control', ensureAuthenticated, function(req, res) {
-	res.sendfile('./public/control.html');
+app.post('/action', ensureAuthenticated,  function(req, res) {
+    console.log(req.body);
+
+    var device = findDevice(req.body.device);
+    
+	var cmd = req.body.status === 'on' ? device.offCommand : device.onCommand;
+	console.log(device, cmd);
+
+	exec(cmd, function(error, stdout, stderr) {
+		    res.send('ok');
+	});
+});
+
+app.get('/control', ensureAuthenticated, function(req, res) {
+	data = {'devices': config.devices}; 
+	res.render('control', data);
 });
 
 function ensureAuthenticated(req, res, next) {
@@ -87,6 +101,14 @@ function ensureAuthenticated(req, res, next) {
     return next();
   else
     res.redirect('/');
+}
+
+function findDevice(mac) {
+	for(var i=0; i<config.devices.length; i++) {
+		if(mac === config.devices[i].mac) {
+			return config.devices[i];
+		}
+	}
 }
 
 app.use(express.static('public'));

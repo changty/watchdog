@@ -7,5 +7,16 @@ config.ca = './ssl/watchdog.crt';
 config.sessionSecret = 'SESSION_SECRET' // change to what ever you like
 config.username = 'DEFAULT USERNAME'; 
 config.pwdHash = 'SH256 crypted password (with crypto)'
-
+config.devices = [
+	{
+		type: 'computer', //light, sensor
+		ip: 'COMPUTER-IP-ADDRESS', //could be controller ip
+		mac: 'COMPUTER-MAC-ADDERSS', // could be controller mac
+		name: 'Name of the device or computer', // 'Livingroom lamp', 'Outside temperature'
+		onCommand: '',
+		offCommand: '',
+		status: '',
+		pollingInterval: 5000 // ms
+	}
+];
 module.exports = config; 
