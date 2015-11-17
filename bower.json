@@ -1,0 +1,24 @@
+{
+  "name": "watchdog",
+  "description": "Tool for home automation/control",
+  "main": "app.js",
+  "authors": [
+    "Einari Kurvinen"
+  ],
+  "license": "GPL-2.0",
+  "homepage": "https://github.com/changty/watchdog",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}

@@ -1,0 +1,11 @@
+var config = {}
+
+config.port=3336;
+config.key = './ssl/server.key'; 
+config.cert = './ssl/server.crt'; 
+config.ca = './ssl/watchdog.crt';
+config.sessionSecret = 'SESSION_SECRET' // change to what ever you like
+config.username = 'DEFAULT USERNAME'; 
+config.pwdHash = 'SH256 crypted password (with crypto)'
+
+module.exports = config; 
