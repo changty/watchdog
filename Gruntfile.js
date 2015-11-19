@@ -10,7 +10,9 @@ module.exports = function(grunt) {
         // Point to the files that should be updated when 
         // you run `grunt wiredep` 
         src: [
-          'public/*.html'   // .html support... 
+          'public/*.html',   // .html support... 
+  	  'views/*.handlebars',
+	  'views/layouts/*handlebars'
         ],
         
         options: {

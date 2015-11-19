@@ -14,10 +14,19 @@ var LocalStrategy = require('passport-local').Strategy
 var crypto = require('crypto');
 
 var exphbs = require('express-handlebars'); 
+var hbs = exphbs.create({
+	defaultLayout: 'main',
+	helpers: {
+		isActive: function(device) {
+			return device + " moi";
+		}
+	}
+
+});
 
 var config = 	require('./config');
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({extended: false})); 
@@ -94,6 +103,23 @@ app.post('/action', ensureAuthenticated,  function(req, res) {
 app.get('/control', ensureAuthenticated, function(req, res) {
 	data = {'devices': config.devices}; 
 	res.render('control', data);
+});
+
+app.post('/isActive', ensureAuthenticated, function(req, res) {
+    var device = findDevice(req.body.device);
+
+	var cmd = 'ping -c 1 ' + device.ip;  
+	console.log("isActive", device, cmd);
+
+	exec(cmd, function(error, stdout, stderr) {
+		    if(stdout == '') {
+		    	res.send('off');
+		    }
+		    else {
+		    	res.send('on');
+		    }
+	});
+
 });
 
 function ensureAuthenticated(req, res, next) {

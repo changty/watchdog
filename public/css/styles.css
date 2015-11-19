@@ -2,3 +2,11 @@ body {
 	padding-top: 70px; 
 	padding-bottom: 80px;
 }
+
+[data-status="on"] {
+	background: #3FC380;
+}
+
+[data-status="off"] {
+	background: #E26A6A;
+}

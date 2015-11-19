@@ -1,10 +1,23 @@
 <h1>Control</h1>
 {{#each devices}}
   
-  <div class="list-group">
+<!--   <div class="list-group">
       <a href="#" class="list-group-item action" data-device="{{mac}}" data-status="on">
         <h4 class="list-group-item-heading">{{name}}</h4>
         <p class="list-group-item-text">{{ip}}</p>
       </a>  
+  </div> -->
+
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{type}} - {{name}}</h3>
   </div>
+  <div class="panel-body">
+  <button class="btn btn-default action" role="button" data-device="{{mac}}" data-status="off">
+        <span class="glyphicon glyphicon-hdd"></span>
+    </button>
+  </div>  
+</div>
+
+
 {{/each}}
