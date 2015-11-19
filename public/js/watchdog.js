@@ -1,6 +1,6 @@
 $(document).ready(function(e) {
 	
-	$('.action').each(function(index) {
+	$('.toggle').each(function(index) {
 		var self = $(this); 
 		$.ajax({
 			data: {device: $(this).attr('data-device')},
@@ -8,6 +8,9 @@ $(document).ready(function(e) {
 			url: '/isActive', 
 			success: function(data) {
 				self.attr('data-status', data); 
+				if(self.bootstrapToggle) {
+					self.bootstrapToggle(data);
+				}
 			},
 			error: function(err) {
 				console.log("isActive", err);
@@ -18,7 +21,7 @@ $(document).ready(function(e) {
 
 
 // Handle status changes
-$('body').on('click', '.action', function(e) {
+$('.toggle').change(function(e) {
 	e.preventDefault(); 
 	var self = this; 
 	console.log($(this).attr('data-device'));

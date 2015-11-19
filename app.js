@@ -92,9 +92,8 @@ app.post('/action', ensureAuthenticated,  function(req, res) {
 
     var device = findDevice(req.body.device);
     
-	var cmd = req.body.status === 'on' ? device.offCommand : device.onCommand;
+	var cmd = req.body.status === 'on' ? device.onCommand : device.offCommand;
 	console.log(device, cmd);
-
 	exec(cmd, function(error, stdout, stderr) {
 		    res.send('ok');
 	});

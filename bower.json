@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.5",
-    "bower-bootswatch-flatly": "flatly-less#~2.3.2"
+    "bootstrap-toggle": "~2.2.1"
   },
   "overrides": {
     "bootstrap": {
@@ -30,6 +30,5 @@
         "dist/js/bootstrap.js"
       ]
     }
-
   }
 }
