@@ -81,10 +81,19 @@ app.get('/loginFailure', function(req, res) {
 	res.send('failure!');
 });
 
+app.get('/', function(req, res) {
+	res.render('login');
+});
+
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/loginFailure', successRedirect: '/control' }),
   function(req, res) {
     res.render('login');
+});
+
+app.get('/logout', function(req, res) {
+	req.logout(); 
+	res.redirect('/');
 });
 
 app.post('/action', ensureAuthenticated,  function(req, res) {
@@ -107,7 +116,7 @@ app.get('/control', ensureAuthenticated, function(req, res) {
 app.post('/isActive', ensureAuthenticated, function(req, res) {
     var device = findDevice(req.body.device);
 
-	var cmd = 'ping -c 1 ' + device.ip;  
+	var cmd = device.status; 
 	console.log("isActive", device, cmd);
 
 	exec(cmd, function(error, stdout, stderr) {

@@ -1,6 +1,52 @@
 body {
-	padding-top: 70px; 
-	padding-bottom: 80px;
+	padding-top: 20px; 
+	padding-bottom: 20px;
+	background: url(../img/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.form-control {
+	background: rgba(255,255,255, .9) !important;
+	box-shadow: none;
+	border: 1px solid rgba(255,255,255, .7);
+}
+
+.form-control:focus {
+	outline: 0;
+	border: 1px solid rgba(50,50,50, .2);
+	box-shadow: none;
+
+}
+.middle {
+	position: absolute;
+	width: 90%;
+	left: 5%;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.toggle {
+	float: right !important;
+	transform: translate(0%, 25%);
+}
+
+.login {
+	background: none !important;
+	border: 1px solid white !important;
+	color: #fff;
+
+}
+.login:hover, login:active, login:focus {
+	background: none !important;
+	border: 1px solid white !important;
+	color: #fff;
+}
+
+.panel {
+	box-shadow: 0px 2px 5px rgba(50,50,50,.2);
 }
 
 /*[data-status="on"] {
